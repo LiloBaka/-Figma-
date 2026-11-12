@@ -7,6 +7,7 @@
     "check:catalog": "node scripts/check_catalog.mjs",
     "check:insert": "node scripts/check_insert.mjs",
     "check:scene": "node scripts/check_scene.mjs",
+    "check:canvas-sync": "node scripts/check_canvas_sync.mjs",
     "check:templates": "node scripts/check_templates.mjs",
     "check:metaphor": "node scripts/check_metaphor.mjs",
     "check:export": "node scripts/check_export.mjs",

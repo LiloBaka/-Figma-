@@ -148,3 +148,9 @@
   sandbox). Figma Development plugin не запускался.
 - Ограничения: reference slots не сопоставлены с asset ID; точные правила
   поворота и универсальная safe area не извлечены и не выдуманы.
+## Iteration: canvas transform synchronization
+- Implemented: figma.on(documentchange) synchronizes x/y/rotation for direct children of the managed root via stable per-item plugin data. Valid changes update Scene storage and notify the UI; applyScene retains matching nodes instead of recreating the composition.
+- Changed files: src/code.ts, src/scene.ts, src/ui.html, scripts/check_canvas_sync.mjs, package.json, docs/PROGRESS.md.
+- Checks: npm.cmd run check:canvas-sync and npm.cmd run build passed outside the sandbox.
+- Limitations: movements outside the current safe area/canvas are not written to Scene, so the last valid Scene is retained and the UI reports the restriction. Resize, duplicate, delete, and reorder from canvas remain intentionally unsupported; Figma manual verification was not run.
+- Next step: stop here; do not expand canvas synchronization without a new request.

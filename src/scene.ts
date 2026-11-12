@@ -70,6 +70,21 @@ export const reduceScene = (state: SceneState, action: SceneAction): SceneState 
 
 export const serializeScene = (scene: Scene) => JSON.stringify(normalize(scene));
 
+export const syncSceneItemTransform = (
+  scene: Scene,
+  id: string,
+  transform: Pick<SceneItem, "x" | "y" | "rotation">
+): Scene | null => {
+  if (![transform.x, transform.y, transform.rotation].every(Number.isFinite)) return null;
+  let found = false;
+  const items = scene.items.map((item) => {
+    if (item.id !== id) return item;
+    found = true;
+    return { ...item, ...transform };
+  });
+  return found ? { ...scene, items } : null;
+};
+
 export const parseScene = (value: string): Scene => {
   const scene = JSON.parse(value) as Scene;
   if (!scene || (scene.format !== "L" && scene.format !== "S") || typeof scene.paletteId !== "string" || typeof scene.templateId !== "string" || !Array.isArray(scene.items)) throw new Error("Invalid saved scene.");
