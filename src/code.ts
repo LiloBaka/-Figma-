@@ -18,7 +18,7 @@ declare const figma: {
 import html from "./ui.html";
 import assetManifest from "../spec/assets.json";
 import { emptyScene, parseScene, serializeScene, type Scene } from "./scene";
-import { canvas, isInSafeArea, layoutFor } from "./templates";
+import { canvas, isInSafeArea, isWithinCanvas, layoutFor } from "./templates";
 
 type SceneNode = {
   x: number;
@@ -75,6 +75,15 @@ const isSafeVectorSvg = (svg: string) => {
 
 const isVectorExport = (svg: string) => isSafeVectorSvg(svg) && /<(?:path|g|polygon|polyline|rect|circle|ellipse)\b/i.test(svg);
 
+const svgDimensions = (svg: string) => {
+  const viewBox = svg.match(/<svg\b[^>]*\bviewBox\s*=\s*["']\s*([^"']+)["']/i)?.[1]
+    .trim()
+    .split(/[\s,]+/)
+    .map(Number);
+  if (!viewBox || viewBox.length !== 4 || !viewBox.every(Number.isFinite) || viewBox[2] < 0 || viewBox[3] < 0) return null;
+  return { width: viewBox[2], height: viewBox[3] };
+};
+
 const insertAsset = (message: Partial<InsertAssetMessage>) => {
   const { requestId, assetId, variant, svg } = message;
   if (typeof requestId !== "string") return;
@@ -125,7 +134,8 @@ const applyScene = async (message: Partial<ApplySceneMessage>) => {
   for (const item of scene.items) {
     const asset = catalog.get(item.assetId);
     const svg = message.svgByItemId[item.id];
-    if (!asset || !asset.allowedRoles.includes(item.role) || !isSafeVectorSvg(svg) || !isInSafeArea(scene.templateId, scene.format, item.x, item.y)) {
+    const dimensions = typeof svg === "string" ? svgDimensions(svg) : null;
+    if (!asset || !asset.allowedRoles.includes(item.role) || !isSafeVectorSvg(svg) || !dimensions || !isInSafeArea(scene.templateId, scene.format, item.x, item.y) || !isWithinCanvas(item.x, item.y, dimensions.width, dimensions.height)) {
       sendError(message.requestId, "INVALID_SCENE_ITEM", "A scene item is missing a valid catalog SVG.");
       return;
     }

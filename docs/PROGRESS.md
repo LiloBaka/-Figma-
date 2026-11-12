@@ -128,3 +128,23 @@
   исходными. Development plugin в Figma не запускался.
 - Следующий шаг: остановлено по запросу; не переходить к L/S, шаблонам или
   другим функциям без нового запроса.
+
+## Итерация: уточнение L/S шаблонов
+- Реализовано: все шесть `references/templates/*.svg` разобраны по `viewBox` и
+  `clipPath`-rect. Для сохранённых `templateId` `compact|offset|headline` × L/S
+  добавлены отдельные конфигурации слотов, позиций и их reference safe area;
+  UI использует их при переключении формата и шаблона.
+- Подтверждённое различие: у всех SVG холст 1200×630; L содержит 6
+  clip-групп, S — 3. Размер холста L/S не различается.
+- Безопасность: `applyScene` извлекает размеры из `viewBox` каждого SVG и
+  отклоняет прямоугольник, выходящий за канонический холст. Тест сверяет все
+  конфигурации с исходными SVG и проверяет, что их реальные clip-границы внутри
+  холста.
+- Изменённые файлы: `src/templates.ts`, `src/code.ts`, `src/ui.html`,
+  `scripts/build.mjs`, `scripts/check_templates.mjs`, `docs/ASSUMPTIONS.md`,
+  `docs/PROGRESS.md`.
+- Проверки: `npm.cmd run check:templates` — успешно; `npm.cmd run build` —
+  успешно (запуск вне sandbox, так как esbuild не читает entrypoints внутри
+  sandbox). Figma Development plugin не запускался.
+- Ограничения: reference slots не сопоставлены с asset ID; точные правила
+  поворота и универсальная safe area не извлечены и не выдуманы.
