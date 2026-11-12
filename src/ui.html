@@ -10,7 +10,7 @@
       h1 { font-size: 18px; margin: 0; }
       #status { color: #0f7b3b; margin: 0; }
       #search { border: 1px solid #b3b3b3; border-radius: 6px; box-sizing: border-box; font: inherit; padding: 8px; width: 100%; }
-      #catalog { display: grid; gap: 8px; max-height: 460px; overflow-y: auto; }
+      #catalog { display: grid; gap: 8px; max-height: 390px; overflow-y: auto; }
       .asset { align-items: center; border: 1px solid #e0e0e0; border-radius: 6px; cursor: pointer; display: grid; gap: 8px; grid-template-columns: 82px 1fr; padding: 8px; }
       .asset[aria-selected="true"] { border-color: #7864d7; box-shadow: 0 0 0 1px #7864d7; }
       .preview { height: 58px; object-fit: contain; width: 82px; }
@@ -20,6 +20,8 @@
       .variant { background: #f4f3fb; border: 0; border-radius: 4px; color: #3e3472; cursor: pointer; font: inherit; padding: 4px 6px; }
       .variant[aria-pressed="true"] { background: #7864d7; color: white; }
       #empty { color: #666; margin: 16px 0; text-align: center; }
+      #insert { background: #7864d7; border: 0; border-radius: 6px; color: white; cursor: pointer; font: inherit; font-weight: 600; padding: 10px; width: 100%; }
+      #insert:disabled { background: #c9c5df; cursor: not-allowed; }
     </style>
   </head>
   <body>
@@ -28,14 +30,25 @@
       <p id="status" role="status">Connecting to plugin…</p>
       <input id="search" type="search" placeholder="Search by name or tag" aria-label="Search illustrations">
       <section id="catalog" aria-label="Illustration catalog"></section>
+      <button id="insert" type="button" disabled>Insert selected illustration</button>
     </main>
     <script>
       const manifest = /* ASSET_MANIFEST */;
       const status = document.getElementById("status");
       const search = document.getElementById("search");
       const catalog = document.getElementById("catalog");
+      const insert = document.getElementById("insert");
       let selectedAssetId = null;
       let selectedVariant = "small_main";
+      let insertRequestId = null;
+
+      function selectedAsset() {
+        return manifest.assets.find((asset) => asset.id === selectedAssetId) || null;
+      }
+
+      function updateInsertButton() {
+        insert.disabled = !selectedAssetId || Boolean(insertRequestId);
+      }
 
       function matchesSearch(asset, query) {
         const haystack = [asset.name, asset.id, ...asset.tags].join(" ").toLocaleLowerCase();
@@ -99,9 +112,31 @@
           });
           catalog.append(card);
         });
+        updateInsertButton();
       }
 
       search.addEventListener("input", renderCatalog);
+      insert.addEventListener("click", async () => {
+        const asset = selectedAsset();
+        if (!asset || insertRequestId) return;
+        const requestId = "insert-" + Date.now();
+        insertRequestId = requestId;
+        updateInsertButton();
+        status.textContent = "Preparing SVG…";
+        try {
+          const response = await fetch(asset.variants[selectedVariant].file);
+          if (!response.ok) throw new Error("The selected SVG could not be read.");
+          const svg = await response.text();
+          parent.postMessage({ pluginMessage: {
+            type: "insertAsset", requestId, assetId: asset.id, variant: selectedVariant, svg
+          } }, "*");
+          status.textContent = "Inserting illustration…";
+        } catch (error) {
+          insertRequestId = null;
+          updateInsertButton();
+          status.textContent = error instanceof Error ? error.message : "The selected SVG could not be read.";
+        }
+      });
       renderCatalog();
       const requestId = "ping-" + Date.now();
       parent.postMessage({ pluginMessage: { type: "ping", requestId } }, "*");
@@ -109,6 +144,16 @@
         const message = event.data.pluginMessage;
         if (message && message.type === "pong" && message.requestId === requestId) {
           status.textContent = "Connected to plugin";
+        }
+        if (message && message.requestId === insertRequestId && message.type === "assetInserted") {
+          insertRequestId = null;
+          updateInsertButton();
+          status.textContent = "Illustration inserted into the canvas.";
+        }
+        if (message && message.requestId === insertRequestId && message.type === "error") {
+          insertRequestId = null;
+          updateInsertButton();
+          status.textContent = message.message || "Could not insert the illustration.";
         }
       };
     </script>

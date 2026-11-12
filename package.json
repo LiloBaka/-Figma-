@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check:catalog": "node scripts/check_catalog.mjs"
+    "check:catalog": "node scripts/check_catalog.mjs",
+    "check:insert": "node scripts/check_insert.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.27.0"
