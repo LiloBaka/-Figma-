@@ -1,0 +1,40 @@
+{
+  "status": "observed_only_NOT_APPROVED_PALETTES",
+  "warning": "Do not globally replace colors using hex mappings; semantic role/token associations not supplied.",
+  "mostFrequentHexValues": [
+    {
+      "hex": "#D7CDF5",
+      "occurrences": 554
+    },
+    {
+      "hex": "#7864D7",
+      "occurrences": 375
+    },
+    {
+      "hex": "#181817",
+      "occurrences": 308
+    },
+    {
+      "hex": "#F9ECB0",
+      "occurrences": 105
+    },
+    {
+      "hex": "#F9A3AA",
+      "occurrences": 34
+    },
+    {
+      "hex": "#AA9BF0",
+      "occurrences": 18
+    },
+    {
+      "hex": "#FFE3E1",
+      "occurrences": 14
+    }
+  ],
+  "examplesSeenInReferences": {
+    "peachBackground": "#FDD7B9",
+    "aquaBackground": "#BEEBEB",
+    "purpleLight": "#D7CDF5",
+    "purpleDark": "#7864D7"
+  }
+}

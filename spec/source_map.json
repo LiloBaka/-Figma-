@@ -1,0 +1,71 @@
+{
+  "archives": {
+    "large_main": "Тестовое _ иллюстрации.zip",
+    "large_background": "Тестовое _ иллюстрации (1).zip",
+    "small_main": "Тестовое _ иллюстрации (2).zip",
+    "small_background": "Тестовое _ иллюстрации (3).zip"
+  },
+  "variantMeaning": "inferred large/small and main/background",
+  "assetNames": {
+    "puzzles": {
+      "large": "Пазлы.svg",
+      "small": "Пазлы.svg",
+      "smallBackground": "Пазлы.svg",
+      "largeBackground": "Пазлы.svg"
+    },
+    "book": {
+      "large": "Книга.svg",
+      "small": "Group 2136136335.svg",
+      "smallBackground": "Group 2136136341.svg",
+      "largeBackground": "Книга.svg"
+    },
+    "phone": {
+      "large": "Телефон.svg",
+      "small": "Телефон.svg",
+      "smallBackground": "Телефон.svg",
+      "largeBackground": "Телефон.svg"
+    },
+    "headphones": {
+      "large": "Наушники.svg",
+      "small": "Наушники.svg",
+      "smallBackground": "Наушники.svg",
+      "largeBackground": "Наушники.svg"
+    },
+    "lamp": {
+      "large": "Лампа.svg",
+      "small": "Лампа.svg",
+      "smallBackground": "Лампа.svg",
+      "largeBackground": "Лампа.svg"
+    },
+    "wallet": {
+      "large": "Кошелек.svg",
+      "small": "Кошелек.svg",
+      "smallBackground": "Кошелек.svg",
+      "largeBackground": "Кошелек.svg"
+    },
+    "pen": {
+      "large": "Ручка.svg",
+      "small": "Group 2136136336.svg",
+      "smallBackground": "Group 2136136343.svg",
+      "largeBackground": "Ручка.svg"
+    },
+    "folder": {
+      "large": "Папка.svg",
+      "small": "Group 2136136337.svg",
+      "smallBackground": "Group 2136136342.svg",
+      "largeBackground": "Папка.svg"
+    },
+    "coin": {
+      "large": "Монета.svg",
+      "small": "Монета.svg",
+      "smallBackground": "Монета.svg",
+      "largeBackground": "Монета.svg"
+    },
+    "unidentified-group": {
+      "large": "Group 2136136344.svg",
+      "small": "Group 2136136345.svg",
+      "smallBackground": "Group 2136136346.svg",
+      "largeBackground": "Group 2136136347.svg"
+    }
+  }
+}

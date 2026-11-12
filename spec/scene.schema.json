@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Illustration scene draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "paletteId",
+    "templateId",
+    "items"
+  ],
+  "properties": {
+    "format": {
+      "enum": [
+        "L",
+        "S"
+      ]
+    },
+    "paletteId": {
+      "type": "string"
+    },
+    "templateId": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "assetId",
+          "role",
+          "x",
+          "y",
+          "rotation",
+          "zIndex"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "assetId": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "main",
+              "background"
+            ]
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "rotation": {
+            "type": "number"
+          },
+          "zIndex": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

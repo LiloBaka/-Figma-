@@ -1,0 +1,803 @@
+{
+  "schemaVersion": 1,
+  "assetCount": 10,
+  "assets": [
+    {
+      "id": "puzzles",
+      "name": "Пазлы",
+      "tags": [
+        "puzzle",
+        "problem-solving"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/puzzles/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Пазлы.svg",
+          "width": 545.0,
+          "height": 314.0,
+          "viewBox": "0 0 545 314",
+          "pathCount": 57,
+          "imageCount": 0,
+          "sha256": "aa421956a60050153ae59b326b6bf7292047ac9b31f36382108092f436d453c5",
+          "colorHexes": [
+            "#181817",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/puzzles/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Пазлы.svg",
+          "width": 545.0,
+          "height": 314.0,
+          "viewBox": "0 0 545 314",
+          "pathCount": 57,
+          "imageCount": 0,
+          "sha256": "822607ace9afa60fb3ba0c5f30fb3ac141d5ad2858ffbdd92629f6fc7982cf78",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/puzzles/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Пазлы.svg",
+          "width": 273.0,
+          "height": 157.0,
+          "viewBox": "0 0 273 157",
+          "pathCount": 57,
+          "imageCount": 0,
+          "sha256": "b12beb5951f6dfde0e864cb61769a3904cb9f47fb8e3cf81a10d9d76c2ef0706",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/puzzles/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Пазлы.svg",
+          "width": 273.0,
+          "height": 157.0,
+          "viewBox": "0 0 273 157",
+          "pathCount": 57,
+          "imageCount": 0,
+          "sha256": "4933d8f7c5240d5bc438c93710ee0273f15fb38b3d015162f0da7823222a92ec",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "book",
+      "name": "Книга",
+      "tags": [
+        "reading",
+        "learning"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/book/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Книга.svg",
+          "width": 1446.0,
+          "height": 977.0,
+          "viewBox": "0 0 1446 977",
+          "pathCount": 53,
+          "imageCount": 0,
+          "sha256": "68829d512f20f3f8f4007cd0222a67c4caf2e520c798f0d25b341b0bac329e34",
+          "colorHexes": [
+            "#181817",
+            "#F9A3AA",
+            "#F9ECB0",
+            "#FFE3E1"
+          ]
+        },
+        "large_background": {
+          "file": "assets/book/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Книга.svg",
+          "width": 1446.0,
+          "height": 977.0,
+          "viewBox": "0 0 1446 977",
+          "pathCount": 53,
+          "imageCount": 0,
+          "sha256": "40dbb5f7ba177336a61c6ad30830ff1213001f5bcc88db97a964d7ef19691ca8",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/book/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Group 2136136335.svg",
+          "width": 723.0,
+          "height": 489.0,
+          "viewBox": "0 0 723 489",
+          "pathCount": 51,
+          "imageCount": 0,
+          "sha256": "861fe0817abff8552212eb3817d2e03363c279787937493af6a861cd4ce544da",
+          "colorHexes": [
+            "#181817",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/book/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Group 2136136341.svg",
+          "width": 723.0,
+          "height": 489.0,
+          "viewBox": "0 0 723 489",
+          "pathCount": 54,
+          "imageCount": 0,
+          "sha256": "e67afd9b7967394b81ebb63ff6a363b1015e57f3e204dee3c141e59ccbdf19e6",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": "Small group filename mapped from matching dimensions/content. Verify visually."
+    },
+    {
+      "id": "phone",
+      "name": "Телефон",
+      "tags": [
+        "technology",
+        "communication"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/phone/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Телефон.svg",
+          "width": 797.0,
+          "height": 462.0,
+          "viewBox": "0 0 797 462",
+          "pathCount": 155,
+          "imageCount": 0,
+          "sha256": "212505ebd177da83d300e79aeba18f3e51d8f37b63bc0ed097ca62fe44323114",
+          "colorHexes": [
+            "#181817",
+            "#7864D7",
+            "#D7CDF5",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/phone/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Телефон.svg",
+          "width": 797.0,
+          "height": 462.0,
+          "viewBox": "0 0 797 462",
+          "pathCount": 155,
+          "imageCount": 0,
+          "sha256": "9434f37dce2d217f0fecb8ad54cab323ba4c193f3b2ca3251167f9f5db49b728",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/phone/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Телефон.svg",
+          "width": 399.0,
+          "height": 231.0,
+          "viewBox": "0 0 399 231",
+          "pathCount": 96,
+          "imageCount": 0,
+          "sha256": "a52c5ab92dd2387468257950e91770de7749d5cc43d393d2a783015d93df62e2",
+          "colorHexes": [
+            "#181817",
+            "#7864D7",
+            "#D7CDF5",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/phone/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Телефон.svg",
+          "width": 399.0,
+          "height": 231.0,
+          "viewBox": "0 0 399 231",
+          "pathCount": 155,
+          "imageCount": 0,
+          "sha256": "8b643c80de22b9342ec51b87ff1b7453f8e1825f5890c27f02b32d46b7d3e86e",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "headphones",
+      "name": "Наушники",
+      "tags": [
+        "audio",
+        "focus"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/headphones/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Наушники.svg",
+          "width": 889.0,
+          "height": 692.0,
+          "viewBox": "0 0 889 692",
+          "pathCount": 84,
+          "imageCount": 0,
+          "sha256": "92331c4dd96e99ad1464e62e8ef5d3e00dc3017d66d0f92012da993d2d1cb35a",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/headphones/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Наушники.svg",
+          "width": 889.0,
+          "height": 692.0,
+          "viewBox": "0 0 889 692",
+          "pathCount": 84,
+          "imageCount": 0,
+          "sha256": "b7d7b514669180eb6bdd09450b6763328b24bbfe400a2a42f84c7b2e9503be94",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/headphones/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Наушники.svg",
+          "width": 445.0,
+          "height": 346.0,
+          "viewBox": "0 0 445 346",
+          "pathCount": 79,
+          "imageCount": 0,
+          "sha256": "2ea8818acf331d794f702e57bcd61d9202cc06a507bf45b466af260fe5b479b5",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5"
+          ]
+        },
+        "small_background": {
+          "file": "assets/headphones/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Наушники.svg",
+          "width": 445.0,
+          "height": 346.0,
+          "viewBox": "0 0 445 346",
+          "pathCount": 84,
+          "imageCount": 0,
+          "sha256": "24c42387a6c5a50e2e1f930ba0d9d5be0881c0bc4f66eed0d7e9cd50827892dc",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "lamp",
+      "name": "Лампа",
+      "tags": [
+        "workspace",
+        "light"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/lamp/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Лампа.svg",
+          "width": 946.0,
+          "height": 1129.0,
+          "viewBox": "0 0 946 1129",
+          "pathCount": 27,
+          "imageCount": 0,
+          "sha256": "046415a0303750389e6bdc35c42111d1c86d14ff1f27b1997c78aa1716d677f5",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/lamp/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Лампа.svg",
+          "width": 946.0,
+          "height": 1129.0,
+          "viewBox": "0 0 946 1129",
+          "pathCount": 27,
+          "imageCount": 0,
+          "sha256": "de5957aca823b48a4d5648323b5ecd2ef7a4bdec99994d47f62e113d9837c7be",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/lamp/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Лампа.svg",
+          "width": 473.0,
+          "height": 565.0,
+          "viewBox": "0 0 473 565",
+          "pathCount": 27,
+          "imageCount": 0,
+          "sha256": "917f86b7df1e2ac24c8546bd8c444d94f9281a368d8d6bf8f01cfea0794eafd2",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/lamp/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Лампа.svg",
+          "width": 473.0,
+          "height": 565.0,
+          "viewBox": "0 0 473 565",
+          "pathCount": 27,
+          "imageCount": 0,
+          "sha256": "17c10fcb447aba0c4bb8994073752f84b3c4e763a5a29598808b3d57b885dfe8",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "wallet",
+      "name": "Кошелёк",
+      "tags": [
+        "finance",
+        "access"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/wallet/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Кошелек.svg",
+          "width": 631.0,
+          "height": 397.0,
+          "viewBox": "0 0 631 397",
+          "pathCount": 86,
+          "imageCount": 0,
+          "sha256": "2ce2224df5563d73ef064d1b9e71438ecf464aac57b23b1424e7ed1e08e99bcd",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/wallet/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Кошелек.svg",
+          "width": 631.0,
+          "height": 397.0,
+          "viewBox": "0 0 631 397",
+          "pathCount": 86,
+          "imageCount": 0,
+          "sha256": "fc9c1e0615a5fff73e9033b19e71238d0a6b92f3c80aacbcde2eab022e6535a3",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/wallet/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Кошелек.svg",
+          "width": 316.0,
+          "height": 199.0,
+          "viewBox": "0 0 316 199",
+          "pathCount": 83,
+          "imageCount": 0,
+          "sha256": "7d4286ccbc485f017848a83fc4ee6bf6fb0393080912eddd7bb41734fa4b1e46",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/wallet/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Кошелек.svg",
+          "width": 316.0,
+          "height": 199.0,
+          "viewBox": "0 0 316 199",
+          "pathCount": 86,
+          "imageCount": 0,
+          "sha256": "67e7b2d7ed6908fac70d9b6fb9b7e066fd93eb421e0cde1a9811676d103e62c6",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "pen",
+      "name": "Ручка",
+      "tags": [
+        "writing",
+        "learning"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/pen/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Ручка.svg",
+          "width": 509.0,
+          "height": 286.0,
+          "viewBox": "0 0 509 286",
+          "pathCount": 24,
+          "imageCount": 0,
+          "sha256": "984f57e42399caa21c5e7b5e55cb9a6c52bc3b50260bc93fc15c418ce244685d",
+          "colorHexes": [
+            "#181817",
+            "#D7CDF5",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/pen/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Ручка.svg",
+          "width": 509.0,
+          "height": 286.0,
+          "viewBox": "0 0 509 286",
+          "pathCount": 24,
+          "imageCount": 0,
+          "sha256": "34cae2dc78723dc436e67a541aed23e28fa49135a1ec5b695dda2a7e9d95e84a",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/pen/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Group 2136136336.svg",
+          "width": 255.0,
+          "height": 143.0,
+          "viewBox": "0 0 255 143",
+          "pathCount": 24,
+          "imageCount": 0,
+          "sha256": "6ec363fbc5e722765ddd51d52a1f35f2963bc2a8effe29e6e28d653ef5b8bbe2",
+          "colorHexes": [
+            "#181817",
+            "#F9A3AA"
+          ]
+        },
+        "small_background": {
+          "file": "assets/pen/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Group 2136136343.svg",
+          "width": 255.0,
+          "height": 143.0,
+          "viewBox": "0 0 255 143",
+          "pathCount": 24,
+          "imageCount": 0,
+          "sha256": "45495afdce7f82c926b3b8ab6688244202549cc969391ff992c328288b1bf0e1",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": "Small group filename mapped from matching dimensions/content. Verify visually."
+    },
+    {
+      "id": "folder",
+      "name": "Папка",
+      "tags": [
+        "organization",
+        "documents"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/folder/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Папка.svg",
+          "width": 1241.0,
+          "height": 659.0,
+          "viewBox": "0 0 1241 659",
+          "pathCount": 22,
+          "imageCount": 0,
+          "sha256": "e1037dd7a46055af35529ee6dfebf3cd19f1e8e20af62fee562d35acc5f01251",
+          "colorHexes": [
+            "#181817",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/folder/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Папка.svg",
+          "width": 1241.0,
+          "height": 659.0,
+          "viewBox": "0 0 1241 659",
+          "pathCount": 22,
+          "imageCount": 0,
+          "sha256": "96056b71114aeb435e1221722afe0e0adcbd2a1a76d9aee776a4e42d30a4fb0c",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/folder/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Group 2136136337.svg",
+          "width": 621.0,
+          "height": 330.0,
+          "viewBox": "0 0 621 330",
+          "pathCount": 20,
+          "imageCount": 0,
+          "sha256": "2cc2d67c7cb5949b98b35f87f02f9267b10666752d4e338b1225382cf1b678c4",
+          "colorHexes": [
+            "#181817",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/folder/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Group 2136136342.svg",
+          "width": 621.0,
+          "height": 330.0,
+          "viewBox": "0 0 621 330",
+          "pathCount": 22,
+          "imageCount": 0,
+          "sha256": "ecd331e4023676b93e67069586fff55e2e0a90ec046ad27489c05caabac5befd",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": "Small group filename mapped from matching dimensions/content. Verify visually."
+    },
+    {
+      "id": "coin",
+      "name": "Монета",
+      "tags": [
+        "finance",
+        "payment"
+      ],
+      "classification": "from_filename_or_dimensions",
+      "variants": {
+        "large_main": {
+          "file": "assets/coin/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Монета.svg",
+          "width": 287.0,
+          "height": 189.0,
+          "viewBox": "0 0 287 189",
+          "pathCount": 136,
+          "imageCount": 0,
+          "sha256": "586739a9eda53b8c8244f04a636cf7ef07e27b7242fde5650d1894505113f248",
+          "colorHexes": [
+            "#181817",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/coin/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Монета.svg",
+          "width": 287.0,
+          "height": 189.0,
+          "viewBox": "0 0 287 189",
+          "pathCount": 136,
+          "imageCount": 0,
+          "sha256": "81a2baf3f608bda1cfe57d73d71382e3cfb2d541f5b7710e91f30e7d2c54c4ef",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/coin/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Монета.svg",
+          "width": 153.0,
+          "height": 101.0,
+          "viewBox": "0 0 153 101",
+          "pathCount": 130,
+          "imageCount": 0,
+          "sha256": "30304fba87a87548cbd09061c19764c45caf051094cea17194e9ae25de532c13",
+          "colorHexes": [
+            "#181817",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/coin/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Монета.svg",
+          "width": 153.0,
+          "height": 101.0,
+          "viewBox": "0 0 153 101",
+          "pathCount": 136,
+          "imageCount": 0,
+          "sha256": "9bb11014607170341c110b3739d941ca07341991adb45d17c8aa643f4579c003",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": ""
+    },
+    {
+      "id": "unidentified-group",
+      "name": "Неопознанная группа",
+      "tags": [
+        "unclassified"
+      ],
+      "classification": "provisional",
+      "variants": {
+        "large_main": {
+          "file": "assets/unidentified-group/large_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации.zip",
+          "sourceFilename": "Group 2136136344.svg",
+          "width": 591.0,
+          "height": 748.0,
+          "viewBox": "0 0 591 748",
+          "pathCount": 131,
+          "imageCount": 0,
+          "sha256": "61b53b61ed3100249ba2c89f314eadaa8be6f31549ed871905779258a1a3e739",
+          "colorHexes": [
+            "#181817",
+            "#AA9BF0",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "large_background": {
+          "file": "assets/unidentified-group/large_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+          "sourceFilename": "Group 2136136347.svg",
+          "width": 591.0,
+          "height": 748.0,
+          "viewBox": "0 0 591 748",
+          "pathCount": 131,
+          "imageCount": 0,
+          "sha256": "13628cfeb28e73334c68ded69e348b89ebc81ea4b59cacb8a5f3408279d783a4",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        },
+        "small_main": {
+          "file": "assets/unidentified-group/small_main.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (2).zip",
+          "sourceFilename": "Group 2136136345.svg",
+          "width": 324.0,
+          "height": 409.0,
+          "viewBox": "0 0 324 409",
+          "pathCount": 131,
+          "imageCount": 0,
+          "sha256": "8dc8a0050327c8102ebbf0e46c0b869329ba4fd5815a695cf6474e5f1d389f71",
+          "colorHexes": [
+            "#181817",
+            "#AA9BF0",
+            "#F9A3AA",
+            "#F9ECB0"
+          ]
+        },
+        "small_background": {
+          "file": "assets/unidentified-group/small_background.svg",
+          "sourceArchive": "Тестовое _ иллюстрации (3).zip",
+          "sourceFilename": "Group 2136136346.svg",
+          "width": 324.0,
+          "height": 409.0,
+          "viewBox": "0 0 324 409",
+          "pathCount": 131,
+          "imageCount": 0,
+          "sha256": "a94baa3a6026397fd6867dcabcf3a229c670d71a2f4be718c8d688778d7ffbf6",
+          "colorHexes": [
+            "#7864D7",
+            "#D7CDF5"
+          ]
+        }
+      },
+      "allowedRoles": [
+        "main",
+        "background"
+      ],
+      "note": "Small group filename mapped from matching dimensions/content. Verify visually."
+    }
+  ],
+  "unclassifiedExtras": [
+    {
+      "file": "assets/_unclassified/large_main_Vector.svg",
+      "sourceArchive": "Тестовое _ иллюстрации.zip",
+      "sha256": "be9744e8aedcd433f9209035fe7cc7eb30eb47cdf69f1a32a45f32e96e0c5779",
+      "note": "17x24 extra vector: purpose unknown; excluded from asset count"
+    },
+    {
+      "file": "assets/_unclassified/large_background_Vector.svg",
+      "sourceArchive": "Тестовое _ иллюстрации (1).zip",
+      "sha256": "7560855e5d67d42ea5cff8c35ac6753ea2c840e74ce601f2a7dffb67354e0d93",
+      "note": "17x24 extra vector: purpose unknown; excluded from asset count"
+    }
+  ]
+}
