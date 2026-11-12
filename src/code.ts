@@ -14,7 +14,7 @@ type PingMessage = {
 
 figma.showUI(html, {
   width: 360,
-  height: 240,
+  height: 600,
   title: "Illustration Builder"
 });
 

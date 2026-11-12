@@ -5,21 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Illustration Builder</title>
     <style>
-      body { margin: 0; color: #1e1e1e; font: 14px/1.4 Inter, sans-serif; }
-      main { display: grid; gap: 16px; padding: 24px; }
-      h1 { font-size: 20px; margin: 0; }
+      body { margin: 0; color: #1e1e1e; font: 12px/1.4 Inter, sans-serif; }
+      main { display: grid; gap: 12px; padding: 16px; }
+      h1 { font-size: 18px; margin: 0; }
       #status { color: #0f7b3b; margin: 0; }
-      #scene { border: 1px dashed #b3b3b3; border-radius: 6px; color: #666; margin: 0; padding: 32px 16px; text-align: center; }
+      #search { border: 1px solid #b3b3b3; border-radius: 6px; box-sizing: border-box; font: inherit; padding: 8px; width: 100%; }
+      #catalog { display: grid; gap: 8px; max-height: 460px; overflow-y: auto; }
+      .asset { align-items: center; border: 1px solid #e0e0e0; border-radius: 6px; cursor: pointer; display: grid; gap: 8px; grid-template-columns: 82px 1fr; padding: 8px; }
+      .asset[aria-selected="true"] { border-color: #7864d7; box-shadow: 0 0 0 1px #7864d7; }
+      .preview { height: 58px; object-fit: contain; width: 82px; }
+      .asset-name { font-weight: 600; }
+      .tags { color: #666; margin: 2px 0 6px; }
+      .variants { display: flex; gap: 4px; }
+      .variant { background: #f4f3fb; border: 0; border-radius: 4px; color: #3e3472; cursor: pointer; font: inherit; padding: 4px 6px; }
+      .variant[aria-pressed="true"] { background: #7864d7; color: white; }
+      #empty { color: #666; margin: 16px 0; text-align: center; }
     </style>
   </head>
   <body>
     <main>
-      <h1>Illustration Builder</h1>
+      <h1>Illustration catalog</h1>
       <p id="status" role="status">Connecting to plugin…</p>
-      <p id="scene">Your scene is empty.</p>
+      <input id="search" type="search" placeholder="Search by name or tag" aria-label="Search illustrations">
+      <section id="catalog" aria-label="Illustration catalog"></section>
     </main>
     <script>
+      const manifest = /* ASSET_MANIFEST */;
       const status = document.getElementById("status");
+      const search = document.getElementById("search");
+      const catalog = document.getElementById("catalog");
+      let selectedAssetId = null;
+      let selectedVariant = "small_main";
+
+      function matchesSearch(asset, query) {
+        const haystack = [asset.name, asset.id, ...asset.tags].join(" ").toLocaleLowerCase();
+        return haystack.includes(query.trim().toLocaleLowerCase());
+      }
+
+      function renderCatalog() {
+        const query = search.value;
+        const assets = manifest.assets.filter((asset) => matchesSearch(asset, query));
+        catalog.replaceChildren();
+        if (assets.length === 0) {
+          const empty = document.createElement("p");
+          empty.id = "empty";
+          empty.textContent = "No illustrations found.";
+          catalog.append(empty);
+          return;
+        }
+        assets.forEach((asset) => {
+          const card = document.createElement("article");
+          const isSelected = selectedAssetId === asset.id;
+          const variantName = isSelected ? selectedVariant : "small_main";
+          card.className = "asset";
+          card.tabIndex = 0;
+          card.setAttribute("aria-selected", String(isSelected));
+
+          const preview = document.createElement("img");
+          preview.className = "preview";
+          preview.alt = asset.name;
+          preview.src = asset.variants[variantName].file;
+          card.append(preview);
+
+          const details = document.createElement("div");
+          details.innerHTML = `<div class="asset-name"></div><div class="tags"></div><div class="variants"></div>`;
+          details.querySelector(".asset-name").textContent = asset.name;
+          details.querySelector(".tags").textContent = asset.tags.join(" · ");
+          const variants = details.querySelector(".variants");
+          Object.keys(asset.variants).forEach((key) => {
+            const button = document.createElement("button");
+            button.className = "variant";
+            button.type = "button";
+            button.textContent = key.replace("_", " / ");
+            button.setAttribute("aria-pressed", String(isSelected && key === selectedVariant));
+            button.addEventListener("click", (event) => {
+              event.stopPropagation();
+              selectedAssetId = asset.id;
+              selectedVariant = key;
+              status.textContent = `Selected: ${asset.name} (${button.textContent})`;
+              renderCatalog();
+            });
+            variants.append(button);
+          });
+          card.append(details);
+          card.addEventListener("click", () => {
+            selectedAssetId = asset.id;
+            selectedVariant = "small_main";
+            status.textContent = `Selected: ${asset.name} (small / main)`;
+            renderCatalog();
+          });
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") card.click();
+          });
+          catalog.append(card);
+        });
+      }
+
+      search.addEventListener("input", renderCatalog);
+      renderCatalog();
       const requestId = "ping-" + Date.now();
       parent.postMessage({ pluginMessage: { type: "ping", requestId } }, "*");
       window.onmessage = (event) => {

@@ -1,8 +1,9 @@
 import { build } from "esbuild";
-import { cp, mkdir, rm } from "node:fs/promises";
-import { resolve } from "node:path";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(import.meta.dirname, "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = resolve(root, "dist");
 
 await rm(dist, { force: true, recursive: true });
@@ -10,10 +11,21 @@ await mkdir(dist, { recursive: true });
 await build({
   absWorkingDir: root,
   bundle: true,
-  entryPoints: [resolve(root, "src/code.ts")],
+  entryPoints: ["./src/code.ts"],
   loader: { ".html": "text" },
-  outfile: resolve(dist, "code.js"),
+  outfile: "dist/code.js",
   platform: "browser",
   target: "es2017"
 });
-await cp(resolve(root, "src/ui.html"), resolve(dist, "ui.html"));
+const [uiTemplate, assetsManifest] = await Promise.all([
+  readFile(resolve(root, "src/ui.html"), "utf8"),
+  readFile(resolve(root, "spec/assets.json"), "utf8")
+]);
+
+await Promise.all([
+  cp(resolve(root, "assets"), resolve(dist, "assets"), { recursive: true }),
+  writeFile(
+    resolve(dist, "ui.html"),
+    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest)
+  )
+]);
