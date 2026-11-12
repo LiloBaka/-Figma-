@@ -1,6 +1,6 @@
 # PROGRESS — единственная короткая память между сессиями Codex
 
-Текущий этап: 3 (завершён)
+Текущий этап: 4 (завершён)
 
 | Этап | Статус | Результат |
 |---|---|---|
@@ -8,7 +8,7 @@
 | 1 Каркас | ☑ | Созданы Figma manifest, TypeScript main/UI entrypoints и сборка; ping/pong реализован в коде. |
 | 2 Каталог | ☑ | Каталог из 10 объектов с SVG-превью, поиском и выбором вариантов. |
 | 3 Вставка | ☑ | Выбранный исходный SVG безопасно передаётся из UI, преобразуется в Figma vector frame и центрируется в viewport. |
-| 4 Редактор | ☐ | |
+| 4 Редактор | ☑ | Сцена с редактируемым списком объектов, хранением и синхронизацией с контролируемой группой Figma. |
 | 5 Шаблоны | ☐ | |
 | 6 Метафора | ☐ | |
 | 7 Экспорт/приемка | ☐ | |
@@ -45,3 +45,11 @@
 - Проверки: `npm.cmd run check:insert` — успешно (40 SVG без raster/image embedding); `npm.cmd run build` — успешно; `npm.cmd run check:catalog` — успешно; `git diff --check` — успешно.
 - Блокеры: Development plugin в Figma не запускался, поэтому фактическая вставка и отображение на canvas в Figma не проверялись.
 - Следующий шаг: `STAGE_04.md` (только по новому запросу).
+
+## Итерация Stage 4
+- Реализовано: типизированные `Scene`/`SceneItem`, reducer для add/duplicate/delete/move/rotate/reorder/select и сериализация; UI-редактор списка и координат без scale; владелец состояния — main code, который сохраняет сцену в `figma.clientStorage` и восстанавливает её при `initialize`.
+- Синхронизация: `applyScene` валидирует Scene и каталог, пересоздаёт только помеченную plugin data группу `Illustration Builder scene`, не затрагивая посторонние узлы Figma. SVG передаются UI для item ID и проверяются как векторные.
+- Изменённые файлы: `src/scene.ts`, `src/code.ts`, `src/ui.html`, `scripts/check_scene.mjs`, `package.json`, `docs/PROGRESS.md`.
+- Проверки: `npm.cmd run check:scene` — успешно (reducer и roundtrip); `npm.cmd run build` — успешно; `git diff --check` — успешно.
+- Блокеры: Development plugin в Figma не запускался, поэтому интерактивная проверка canvas/clientStorage в Figma не выполнена.
+- Следующий шаг: `STAGE_05.md` (только по новому запросу).

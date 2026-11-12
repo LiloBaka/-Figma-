@@ -2,11 +2,14 @@ declare const figma: {
   showUI(html: string, options: { width: number; height: number; title: string }): void;
   currentPage: {
     appendChild(node: SceneNode): void;
+    findAll(callback: (node: SceneNode) => boolean): SceneNode[];
   };
   viewport: {
     center: { x: number; y: number };
   };
   createNodeFromSvg(svg: string): FrameNode;
+  createFrame(): FrameNode;
+  clientStorage: { getAsync(key: string): Promise<unknown>; setAsync(key: string, value: unknown): Promise<void> };
   ui: {
     onmessage: (message: unknown) => void;
     postMessage(message: unknown): void;
@@ -14,6 +17,7 @@ declare const figma: {
 };
 import html from "./ui.html";
 import assetManifest from "../spec/assets.json";
+import { emptyScene, parseScene, serializeScene, type Scene } from "./scene";
 
 type SceneNode = {
   x: number;
@@ -21,6 +25,12 @@ type SceneNode = {
   width: number;
   height: number;
   name: string;
+  rotation: number;
+  remove(): void;
+  appendChild(node: SceneNode): void;
+  getPluginData(key: string): string;
+  setPluginData(key: string, value: string): void;
+  clipsContent: boolean;
 };
 
 type FrameNode = SceneNode;
@@ -38,7 +48,13 @@ type InsertAssetMessage = {
   svg: string;
 };
 
+type ApplySceneMessage = { type: "applyScene"; requestId: string; scene: Scene; svgByItemId: Record<string, string> };
+type InitializeMessage = { type: "initialize"; requestId: string };
+
 const catalog = new Map(assetManifest.assets.map((asset) => [asset.id, asset]));
+const storageKey = "illustration-builder.scene.v1";
+const ownerKey = "illustration-builder.owner";
+const ownerValue = "scene-root-v1";
 
 const sendError = (requestId: string, code: string, message: string) => {
   figma.ui.postMessage({ type: "error", requestId, code, message });
@@ -83,6 +99,60 @@ const insertAsset = (message: Partial<InsertAssetMessage>) => {
   }
 };
 
+const validScene = (scene: unknown): scene is Scene => {
+  try { parseScene(JSON.stringify(scene)); return true; } catch { return false; }
+};
+
+const sceneRoot = () => figma.currentPage.findAll((node) => node.getPluginData(ownerKey) === ownerValue)[0];
+
+const applyScene = async (message: Partial<ApplySceneMessage>) => {
+  if (typeof message.requestId !== "string") return;
+  if (!validScene(message.scene) || !message.svgByItemId || typeof message.svgByItemId !== "object") {
+    sendError(message.requestId, "INVALID_SCENE", "The scene is not valid.");
+    return;
+  }
+  const scene = parseScene(JSON.stringify(message.scene));
+  for (const item of scene.items) {
+    const asset = catalog.get(item.assetId);
+    const svg = message.svgByItemId[item.id];
+    if (!asset || !asset.allowedRoles.includes(item.role) || !isSafeVectorSvg(svg)) {
+      sendError(message.requestId, "INVALID_SCENE_ITEM", "A scene item is missing a valid catalog SVG.");
+      return;
+    }
+  }
+  try {
+    const previous = sceneRoot();
+    if (previous) previous.remove();
+    const root = figma.createFrame();
+    root.name = "Illustration Builder scene";
+    root.clipsContent = false;
+    root.setPluginData(ownerKey, ownerValue);
+    figma.currentPage.appendChild(root);
+    for (const item of scene.items) {
+      const node = figma.createNodeFromSvg(message.svgByItemId[item.id]);
+      node.name = item.id;
+      root.appendChild(node);
+      node.x = item.x;
+      node.y = item.y;
+      node.rotation = item.rotation;
+    }
+    await figma.clientStorage.setAsync(storageKey, serializeScene(scene));
+    figma.ui.postMessage({ type: "sceneApplied", requestId: message.requestId, scene });
+  } catch (error) {
+    sendError(message.requestId, "SCENE_APPLY_FAILED", error instanceof Error ? error.message : "Figma could not update the scene.");
+  }
+};
+
+const initialize = async (requestId: string) => {
+  try {
+    const saved = await figma.clientStorage.getAsync(storageKey);
+    const scene = typeof saved === "string" ? parseScene(saved) : emptyScene();
+    figma.ui.postMessage({ type: "sceneLoaded", requestId, scene });
+  } catch {
+    figma.ui.postMessage({ type: "sceneLoaded", requestId, scene: emptyScene() });
+  }
+};
+
 figma.showUI(html, {
   width: 360,
   height: 600,
@@ -90,7 +160,7 @@ figma.showUI(html, {
 });
 
 figma.ui.onmessage = (message: unknown) => {
-  const candidate = message as Partial<PingMessage & InsertAssetMessage>;
+  const candidate = message as Partial<PingMessage & InsertAssetMessage & ApplySceneMessage & InitializeMessage>;
   if (candidate.type === "ping" && typeof candidate.requestId === "string") {
     figma.ui.postMessage({ type: "pong", requestId: candidate.requestId });
     return;
@@ -98,4 +168,8 @@ figma.ui.onmessage = (message: unknown) => {
   if (candidate.type === "insertAsset") {
     insertAsset(candidate);
   }
+  if (candidate.type === "initialize" && typeof candidate.requestId === "string") {
+    void initialize(candidate.requestId);
+  }
+  if (candidate.type === "applyScene") void applyScene(candidate);
 };
