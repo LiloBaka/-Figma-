@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Illustration Builder</title>
+    <style>
+      body { margin: 0; color: #1e1e1e; font: 14px/1.4 Inter, sans-serif; }
+      main { display: grid; gap: 16px; padding: 24px; }
+      h1 { font-size: 20px; margin: 0; }
+      #status { color: #0f7b3b; margin: 0; }
+      #scene { border: 1px dashed #b3b3b3; border-radius: 6px; color: #666; margin: 0; padding: 32px 16px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Illustration Builder</h1>
+      <p id="status" role="status">Connecting to plugin…</p>
+      <p id="scene">Your scene is empty.</p>
+    </main>
+    <script>
+      const status = document.getElementById("status");
+      const requestId = "ping-" + Date.now();
+      parent.postMessage({ pluginMessage: { type: "ping", requestId } }, "*");
+      window.onmessage = (event) => {
+        const message = event.data.pluginMessage;
+        if (message && message.type === "pong" && message.requestId === requestId) {
+          status.textContent = "Connected to plugin";
+        }
+      };
+    </script>
+  </body>
+</html>
