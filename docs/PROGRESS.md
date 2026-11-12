@@ -1,6 +1,6 @@
 # PROGRESS — единственная короткая память между сессиями Codex
 
-Текущий этап: 4 (завершён)
+Текущий этап: 5 (завершён)
 
 | Этап | Статус | Результат |
 |---|---|---|
@@ -9,7 +9,7 @@
 | 2 Каталог | ☑ | Каталог из 10 объектов с SVG-превью, поиском и выбором вариантов. |
 | 3 Вставка | ☑ | Выбранный исходный SVG безопасно передаётся из UI, преобразуется в Figma vector frame и центрируется в viewport. |
 | 4 Редактор | ☑ | Сцена с редактируемым списком объектов, хранением и синхронизацией с контролируемой группой Figma. |
-| 5 Шаблоны | ☐ | |
+| 5 Шаблоны | ☑ | Три детерминированных композиционных пресета на холсте 1200×630, с переключением L/S и main/background. |
 | 6 Метафора | ☐ | |
 | 7 Экспорт/приемка | ☐ | |
 
@@ -53,3 +53,24 @@
 - Проверки: `npm.cmd run check:scene` — успешно (reducer и roundtrip); `npm.cmd run build` — успешно; `git diff --check` — успешно.
 - Блокеры: Development plugin в Figma не запускался, поэтому интерактивная проверка canvas/clientStorage в Figma не выполнена.
 - Следующий шаг: `STAGE_05.md` (только по новому запросу).
+
+## Итерация Stage 5
+- Реализовано: `compact`, `offset` и `headline` как детерминированные пресеты
+  для L/S; сцена создаётся в каноническом frame 1200×630. UI переключает
+  формат, шаблон и роль, выбирая только существующие варианты
+  `large/small` + `main/background`; координаты ограничены safe area. Main code
+  до мутации проверяет соответствие template/формата и safe area.
+- Изменённые файлы: `src/templates.ts`, `src/scene.ts`, `src/code.ts`,
+  `src/ui.html`, `scripts/build.mjs`, `scripts/check_templates.mjs`,
+  `package.json`, `docs/ASSUMPTIONS.md`, `docs/MESSAGES.md`,
+  `docs/PROGRESS.md`.
+- Проверки: статическая Node-проверка `spec/templates.json` — успешно (3 вида
+  шаблонов × L/S); `git diff --check` — успешно. `npm.cmd run check:templates`,
+  `npm.cmd run check:scene` и `npm.cmd run build` не запущены успешно:
+  esbuild получает `Cannot read directory "../../../..": Access is denied` и
+  не разрешает существующие entrypoints в sandbox. Figma Development plugin не
+  запускался, поэтому интерактивная проверка в Figma не выполнена.
+- Блокеры: точные native dimensions L/S, slot bounds и safe area не
+  подтверждены; применены явно документированные MVP-допущения. Ограничение
+  sandbox/esbuild требует среды с доступом к файловому дереву для сборки.
+- Следующий шаг: `STAGE_06.md` (только по новому запросу).

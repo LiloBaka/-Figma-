@@ -6,7 +6,8 @@
     "build": "node scripts/build.mjs",
     "check:catalog": "node scripts/check_catalog.mjs",
     "check:insert": "node scripts/check_insert.mjs",
-    "check:scene": "node scripts/check_scene.mjs"
+    "check:scene": "node scripts/check_scene.mjs",
+    "check:templates": "node scripts/check_templates.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.27.0"

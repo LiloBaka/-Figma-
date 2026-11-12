@@ -18,6 +18,7 @@ declare const figma: {
 import html from "./ui.html";
 import assetManifest from "../spec/assets.json";
 import { emptyScene, parseScene, serializeScene, type Scene } from "./scene";
+import { canvas, isInSafeArea, layoutFor } from "./templates";
 
 type SceneNode = {
   x: number;
@@ -30,6 +31,7 @@ type SceneNode = {
   appendChild(node: SceneNode): void;
   getPluginData(key: string): string;
   setPluginData(key: string, value: string): void;
+  resize(width: number, height: number): void;
   clipsContent: boolean;
 };
 
@@ -112,10 +114,14 @@ const applyScene = async (message: Partial<ApplySceneMessage>) => {
     return;
   }
   const scene = parseScene(JSON.stringify(message.scene));
+  if (!layoutFor(scene.templateId, scene.format)) {
+    sendError(message.requestId, "INVALID_TEMPLATE", "Choose a template matching the selected format.");
+    return;
+  }
   for (const item of scene.items) {
     const asset = catalog.get(item.assetId);
     const svg = message.svgByItemId[item.id];
-    if (!asset || !asset.allowedRoles.includes(item.role) || !isSafeVectorSvg(svg)) {
+    if (!asset || !asset.allowedRoles.includes(item.role) || !isSafeVectorSvg(svg) || !isInSafeArea(scene.templateId, scene.format, item.x, item.y)) {
       sendError(message.requestId, "INVALID_SCENE_ITEM", "A scene item is missing a valid catalog SVG.");
       return;
     }
@@ -126,6 +132,9 @@ const applyScene = async (message: Partial<ApplySceneMessage>) => {
     const root = figma.createFrame();
     root.name = "Illustration Builder scene";
     root.clipsContent = false;
+    root.resize(canvas.width, canvas.height);
+    root.x = figma.viewport.center.x - canvas.width / 2;
+    root.y = figma.viewport.center.y - canvas.height / 2;
     root.setPluginData(ownerKey, ownerValue);
     figma.currentPage.appendChild(root);
     for (const item of scene.items) {

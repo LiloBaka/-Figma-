@@ -17,15 +17,16 @@ await build({
   platform: "browser",
   target: "es2017"
 });
-const [uiTemplate, assetsManifest] = await Promise.all([
+const [uiTemplate, assetsManifest, templatesManifest] = await Promise.all([
   readFile(resolve(root, "src/ui.html"), "utf8"),
-  readFile(resolve(root, "spec/assets.json"), "utf8")
+  readFile(resolve(root, "spec/assets.json"), "utf8"),
+  readFile(resolve(root, "spec/templates.json"), "utf8")
 ]);
 
 await Promise.all([
   cp(resolve(root, "assets"), resolve(dist, "assets"), { recursive: true }),
   writeFile(
     resolve(dist, "ui.html"),
-    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest)
+    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest).replace("/* TEMPLATE_MANIFEST */", templatesManifest)
   )
 ]);

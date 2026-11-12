@@ -28,7 +28,7 @@ export type SceneAction =
 
 export type SceneState = { scene: Scene; selectedItemId: string | null };
 
-export const emptyScene = (): Scene => ({ format: "S", paletteId: "", templateId: "", items: [] });
+export const emptyScene = (): Scene => ({ format: "S", paletteId: "", templateId: "compact_S", items: [] });
 
 const normalize = (scene: Scene): Scene => ({
   ...scene,
@@ -72,7 +72,7 @@ export const serializeScene = (scene: Scene) => JSON.stringify(normalize(scene))
 
 export const parseScene = (value: string): Scene => {
   const scene = JSON.parse(value) as Scene;
-  if (!scene || (scene.format !== "L" && scene.format !== "S") || !Array.isArray(scene.items)) throw new Error("Invalid saved scene.");
+  if (!scene || (scene.format !== "L" && scene.format !== "S") || typeof scene.paletteId !== "string" || typeof scene.templateId !== "string" || !Array.isArray(scene.items)) throw new Error("Invalid saved scene.");
   for (const item of scene.items) {
     if (!item || typeof item.id !== "string" || typeof item.assetId !== "string" || (item.role !== "main" && item.role !== "background") || ![item.x, item.y, item.rotation, item.zIndex].every(Number.isFinite)) throw new Error("Invalid scene item.");
   }
