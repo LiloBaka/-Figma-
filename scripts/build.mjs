@@ -22,11 +22,21 @@ const [uiTemplate, assetsManifest, templatesManifest] = await Promise.all([
   readFile(resolve(root, "spec/assets.json"), "utf8"),
   readFile(resolve(root, "spec/templates.json"), "utf8")
 ]);
+const metaphorBundle = await build({
+  absWorkingDir: root,
+  bundle: true,
+  entryPoints: ["./src/metaphor.ts"],
+  format: "iife",
+  globalName: "metaphorPicker",
+  platform: "browser",
+  target: "es2017",
+  write: false
+});
 
 await Promise.all([
   cp(resolve(root, "assets"), resolve(dist, "assets"), { recursive: true }),
   writeFile(
     resolve(dist, "ui.html"),
-    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest).replace("/* TEMPLATE_MANIFEST */", templatesManifest)
+    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest).replace("/* TEMPLATE_MANIFEST */", templatesManifest).replace("/* METAPHOR_PICKER */", metaphorBundle.outputFiles[0].text)
   )
 ]);
