@@ -22,7 +22,7 @@ const [uiTemplate, assetsManifest, templatesManifest] = await Promise.all([
   readFile(resolve(root, "spec/assets.json"), "utf8"),
   readFile(resolve(root, "spec/templates.json"), "utf8")
 ]);
-const metaphorBundle = await build({
+const [metaphorBundle, paletteBundle] = await Promise.all([build({
   absWorkingDir: root,
   bundle: true,
   entryPoints: ["./src/metaphor.ts"],
@@ -31,12 +31,21 @@ const metaphorBundle = await build({
   platform: "browser",
   target: "es2017",
   write: false
-});
+}), build({
+  absWorkingDir: root,
+  bundle: true,
+  entryPoints: ["./src/palette.ts"],
+  format: "iife",
+  globalName: "paletteTransformer",
+  platform: "browser",
+  target: "es2017",
+  write: false
+})]);
 
 await Promise.all([
   cp(resolve(root, "assets"), resolve(dist, "assets"), { recursive: true }),
   writeFile(
     resolve(dist, "ui.html"),
-    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest).replace("/* TEMPLATE_MANIFEST */", templatesManifest).replace("/* METAPHOR_PICKER */", metaphorBundle.outputFiles[0].text)
+    uiTemplate.replace("/* ASSET_MANIFEST */", assetsManifest).replace("/* TEMPLATE_MANIFEST */", templatesManifest).replace("/* METAPHOR_PICKER */", metaphorBundle.outputFiles[0].text).replace("/* PALETTE_TRANSFORMER */", paletteBundle.outputFiles[0].text)
   )
 ]);

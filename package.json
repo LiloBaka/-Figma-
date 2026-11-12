@@ -9,7 +9,8 @@
     "check:scene": "node scripts/check_scene.mjs",
     "check:templates": "node scripts/check_templates.mjs",
     "check:metaphor": "node scripts/check_metaphor.mjs",
-    "check:export": "node scripts/check_export.mjs"
+    "check:export": "node scripts/check_export.mjs",
+    "check:palette": "node scripts/check_palette.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.27.0"
