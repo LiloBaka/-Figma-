@@ -33,6 +33,7 @@ type SceneNode = {
   setPluginData(key: string, value: string): void;
   resize(width: number, height: number): void;
   clipsContent: boolean;
+  exportAsync(settings: { format: "SVG" }): Promise<Uint8Array>;
 };
 
 type FrameNode = SceneNode;
@@ -52,6 +53,7 @@ type InsertAssetMessage = {
 
 type ApplySceneMessage = { type: "applyScene"; requestId: string; scene: Scene; svgByItemId: Record<string, string> };
 type InitializeMessage = { type: "initialize"; requestId: string };
+type ExportSceneMessage = { type: "exportScene"; requestId: string };
 
 const catalog = new Map(assetManifest.assets.map((asset) => [asset.id, asset]));
 const storageKey = "illustration-builder.scene.v1";
@@ -70,6 +72,8 @@ const isSafeVectorSvg = (svg: string) => {
     !/data:image\//i.test(source) &&
     !/\b(?:href|xlink:href)\s*=\s*["']\s*(?:https?:|data:|file:)/i.test(source);
 };
+
+const isVectorExport = (svg: string) => isSafeVectorSvg(svg) && /<(?:path|g|polygon|polyline|rect|circle|ellipse)\b/i.test(svg);
 
 const insertAsset = (message: Partial<InsertAssetMessage>) => {
   const { requestId, assetId, variant, svg } = message;
@@ -162,6 +166,25 @@ const initialize = async (requestId: string) => {
   }
 };
 
+const exportScene = async (requestId: string) => {
+  const root = sceneRoot();
+  if (!root) {
+    sendError(requestId, "NO_SCENE_TO_EXPORT", "Create or restore a scene before exporting SVG.");
+    return;
+  }
+  try {
+    const bytes = await root.exportAsync({ format: "SVG" });
+    const svg = new TextDecoder().decode(bytes);
+    if (!isVectorExport(svg)) {
+      sendError(requestId, "UNSAFE_SVG_EXPORT", "The exported SVG contains raster content or no vector elements.");
+      return;
+    }
+    figma.ui.postMessage({ type: "sceneExported", requestId, bytes, filename: "illustration-builder-scene.svg" });
+  } catch (error) {
+    sendError(requestId, "SCENE_EXPORT_FAILED", error instanceof Error ? error.message : "Figma could not export this scene.");
+  }
+};
+
 figma.showUI(html, {
   width: 360,
   height: 600,
@@ -169,7 +192,7 @@ figma.showUI(html, {
 });
 
 figma.ui.onmessage = (message: unknown) => {
-  const candidate = message as Partial<PingMessage & InsertAssetMessage & ApplySceneMessage & InitializeMessage>;
+  const candidate = message as Partial<PingMessage & InsertAssetMessage & ApplySceneMessage & InitializeMessage & ExportSceneMessage>;
   if (candidate.type === "ping" && typeof candidate.requestId === "string") {
     figma.ui.postMessage({ type: "pong", requestId: candidate.requestId });
     return;
@@ -181,4 +204,5 @@ figma.ui.onmessage = (message: unknown) => {
     void initialize(candidate.requestId);
   }
   if (candidate.type === "applyScene") void applyScene(candidate);
+  if (candidate.type === "exportScene" && typeof candidate.requestId === "string") void exportScene(candidate.requestId);
 };

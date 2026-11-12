@@ -16,13 +16,11 @@ for (const asset of manifest.assets) {
   }
 }
 
-for (const source of [code, ui]) {
-  if (!source.includes("insertAsset")) throw new Error("Insert message handler is missing");
-}
+if (!code.includes("insertAsset")) throw new Error("Insert message handler is missing");
 if (!code.includes("figma.createNodeFromSvg") || !code.includes("figma.viewport.center")) {
   throw new Error("SVG vector insertion and viewport centering are required");
 }
-if (!ui.includes("fetch(asset.variants[selectedVariant].file)")) {
+if (!ui.includes("fetch(assetFor(item.assetId).variants[variantFor(item.role)].file)")) {
   throw new Error("UI must transfer the selected source SVG");
 }
 

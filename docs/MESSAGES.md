@@ -7,9 +7,11 @@
 | UI → plugin | `initialize` | `requestId` |
 | UI → plugin | `getCatalog` | `requestId` |
 | UI → plugin | `applyScene` | `requestId`, `scene` по `spec/scene.schema.json` |
+| UI → plugin | `exportScene` | `requestId` |
 | UI → plugin | `insertAsset` | `requestId`, `assetId`, `variant`, исходная строка `svg` выбранного ресурса |
 | plugin → UI | `catalog` | `requestId`, `assets`, `templates`, доступные palette IDs |
 | plugin → UI | `sceneApplied` | `requestId`, нормализованная `scene` |
+| plugin → UI | `sceneExported` | `requestId`, SVG-байты и имя файла после проверки векторности |
 | plugin → UI | `assetInserted` | `requestId`, `assetId`, `variant` после создания векторного узла |
 | plugin → UI | `error` | `requestId`, стабильный `code`, понятный `message` |
 
